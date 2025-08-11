@@ -77,7 +77,13 @@ def delete_product(product_id: UUID, session: Session = Depends(database.get_ses
 def create_order(order_in: schemas.OrderCreate, session: Session = Depends(database.get_session)):
     return crud.create_order(session, order_in)
 
-@router.get("/orders", response_model=list[schemas.OrderRead])
+@router.get(
+    "/orders",
+    response_model=list[schemas.OrderRead],
+    tags=["Orders"],
+    summary="List all orders",
+    description="Retrieve all orders in the system."
+)
 def list_orders(session: Session = Depends(database.get_session)):
     """Fetch all orders."""
     return crud.get_orders(session)
