@@ -85,3 +85,7 @@ def delete_order(session: Session, order_id: UUID):
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Cannot delete non-pending orders")
     session.delete(order)
     session.commit()
+
+
+def get_orders(session: Session):
+    return session.query(models.Order).all()

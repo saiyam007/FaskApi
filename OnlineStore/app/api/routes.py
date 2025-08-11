@@ -77,6 +77,10 @@ def delete_product(product_id: UUID, session: Session = Depends(database.get_ses
 def create_order(order_in: schemas.OrderCreate, session: Session = Depends(database.get_session)):
     return crud.create_order(session, order_in)
 
+@router.get("/orders", response_model=list[schemas.OrderRead])
+def list_orders(session: Session = Depends(database.get_session)):
+    """Fetch all orders."""
+    return crud.get_orders(session)
 
 @router.get(
     "/orders/{order_id}",
@@ -110,3 +114,5 @@ def update_order(order_id: UUID, order_in: schemas.OrderUpdate, session: Session
 def delete_order(order_id: UUID, session: Session = Depends(database.get_session)):
     crud.delete_order(session, order_id)
     return None
+
+
